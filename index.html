@@ -105,13 +105,17 @@ nav {
 /* ── HERO ── */
 #hero {
   min-height:100vh;
-  display:grid;grid-template-columns:1fr minmax(0,340px);
-  align-items:center;gap:2.5rem;
-  padding:8rem 3rem 4rem;
-  max-width:1300px;margin:0 auto;
-  position:relative;z-index:1;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:3rem;
+  padding:8rem 4rem 4rem;
+  max-width:1300px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
 }
-.hero-left {}
+.hero-left { flex:1; min-width:0; }
 .hero-eyebrow {
   font-family:var(--mono);font-size:.65rem;color:var(--accent);
   letter-spacing:.25em;text-transform:uppercase;
@@ -174,18 +178,20 @@ nav {
 .btn-ghost:hover { border-color:var(--accent);color:var(--accent); }
 
 /* HERO RIGHT — PHOTO CARD */
-.hero-right { position:relative; min-width:0; overflow:hidden; }
+.hero-right {
+  width:320px;
+  flex-shrink:0;
+  overflow:hidden;
+}
 .photo-card {
   position:relative;
   background:var(--surface);
   border:1px solid var(--border2);
   border-radius:16px;
-  padding:1rem;
-  overflow:hidden;
+  padding:1.2rem;
   text-align:center;
   width:100%;
-  max-width:320px;
-  margin:0 auto;
+  overflow:hidden;
 }
 .photo-card::before {
   content:'';position:absolute;inset:0;
@@ -193,10 +199,15 @@ nav {
   z-index:0;
 }
 .photo-card img {
-  width:260px;height:260px;border-radius:50%;
-  display:block;position:relative;z-index:1;
-  object-fit:cover;object-position:center top;
-  margin:1.5rem auto;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  display:block;
+  position:relative;
+  z-index:1;
+  object-fit:cover;
+  object-position:center top;
+  margin:1rem auto;
   border:3px solid rgba(0,229,176,.3);
   box-shadow:0 0 30px rgba(0,229,176,.12);
   max-width:100%;
@@ -776,18 +787,31 @@ img[loading] { opacity:0; }
   .nav-links,.nav-cta { display:none; }
   #hero {
   min-height:100vh;
-  display:grid;grid-template-columns:1fr minmax(0,340px);
-  align-items:center;gap:2.5rem;
-  padding:8rem 3rem 4rem;
-  max-width:1300px;margin:0 auto;
-  position:relative;z-index:1;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:3rem;
+  padding:8rem 4rem 4rem;
+  max-width:1300px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
 }
-  .hero-right { order:-1; }
+  .hero-right {
+  width:320px;
+  flex-shrink:0;
+  overflow:hidden;
+}
   .photo-card img {
-  width:260px;height:260px;border-radius:50%;
-  display:block;position:relative;z-index:1;
-  object-fit:cover;object-position:center top;
-  margin:1.5rem auto;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  display:block;
+  position:relative;
+  z-index:1;
+  object-fit:cover;
+  object-position:center top;
+  margin:1rem auto;
   border:3px solid rgba(0,229,176,.3);
   box-shadow:0 0 30px rgba(0,229,176,.12);
   max-width:100%;
@@ -1643,8 +1667,8 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape") document.querySel
 
 // ── TEXT SCRAMBLE EFFECT ON HERO NAME ──
 const chars = "!<>-_\/[]{}—=+*^?#ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-function scramble(el, finalText, duration=800){
-  let frame=0, total=Math.ceil(duration/40);
+function scramble(el, finalText, duration=2000){
+  let frame=0, total=Math.ceil(duration/60);
   const interval = setInterval(()=>{
     el.textContent = finalText.split('').map((c,i)=>{
       if(i < Math.floor(frame/total*finalText.length)) return c;
@@ -1652,7 +1676,7 @@ function scramble(el, finalText, duration=800){
     }).join('');
     frame++;
     if(frame>total){ el.textContent=finalText; clearInterval(interval); }
-  },40);
+  },60);
 }
 
 // Trigger scramble on hero name when visible
@@ -1661,8 +1685,8 @@ const heroObs = new IntersectionObserver(entries=>{
     if(e.isIntersecting){
       const n1 = document.querySelector('.n1');
       const n2 = document.querySelector('.n2');
-      if(n1) setTimeout(()=>scramble(n1,'SAIBALAJI'),200);
-      if(n2) setTimeout(()=>scramble(n2,'NEELI'),600);
+      if(n1) setTimeout(()=>scramble(n1,'SAIBALAJI'),400);
+      if(n2) setTimeout(()=>scramble(n2,'NEELI'),1200);
       heroObs.disconnect();
     }
   });
