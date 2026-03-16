@@ -105,11 +105,12 @@ nav {
 /* ── HERO ── */
 #hero {
   min-height:100vh;
-  display:grid;grid-template-columns:1fr 420px;
-  align-items:center;gap:4rem;
+  display:grid;grid-template-columns:1fr 380px;
+  align-items:center;gap:3rem;
   padding:8rem 4rem 4rem;
   max-width:1300px;margin:0 auto;
   position:relative;z-index:1;
+  overflow:hidden;
 }
 .hero-left {}
 .hero-eyebrow {
@@ -183,6 +184,7 @@ nav {
   padding:1.5rem;
   overflow:hidden;
   text-align:center;
+  max-width:100%;
 }
 .photo-card::before {
   content:'';position:absolute;inset:0;
@@ -1345,7 +1347,7 @@ function animateCounter(el){
   const target = parseInt(el.dataset.count);
   const suffix = el.dataset.suffix || "";
   const isDecimal = el.dataset.decimal === "true";
-  const duration = 1800;
+  const duration = 2800;
   const start = performance.now();
   function update(now){
     const elapsed = now - start;
